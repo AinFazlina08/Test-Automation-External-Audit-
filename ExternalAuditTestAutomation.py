@@ -49,18 +49,15 @@ def TC_ExternalAudit1():
 
     # Check Add button
     try:
-        driver.find_element_by_xpath('/html/body/div[2]/div[1]/div[3]/div[2]/div/div/div/div[1]/div/button')
+        driver.find_element_by_xpath('/ html / body / div[2] / div[1] / div[3] / div[2] / div / div / div / div[1] / div / button / i')
         print("TEST PASSED. Add button available")
     except Exception as e:
         print("TEST FAILED", e)
 
     # Check Action buttons: View,Edit,Delete
     try:
-        # check table exist
-        driver.find_element_by_xpath('//*[@id="ExternalNCRCB"]/tbody/tr[1]/td[1]/a[1]/i')
-
         # check View button exist
-        driver.find_element_by_xpath('//*[@id="ExternalNCRCB"]/tbody/tr[1]/td[1]/a[1]')
+        driver.find_element_by_xpath('//*[@id="ExternalNCRCB"]/tbody/tr[1]/td[1]/a[1]/i')
 
         # check Edit button exist
         driver.find_element_by_xpath('//*[@id="ExternalNCRCB"]/tbody/tr[1]/td[1]/a[2]/i')
@@ -78,7 +75,7 @@ def TC_ExternalAudit2():
     driver.get("https://vhsmartqsrtest.azurewebsites.net/CBExternal/Index")
 
     try:
-        driver.find_element_by_xpath('/html/body/div[2]/div[1]/div[3]/div[2]/div/div/div/div[1]/div/button').click()
+        driver.find_element_by_xpath('/ html / body / div[2] / div[1] / div[3] / div[2] / div / div / div / div[1] / div / button / i').click()
         print("TEST PASSED. Able to verify Add External Audit Report page")
     except Exception as e:
         print("TEST FAILED", e)
@@ -87,6 +84,8 @@ def TC_ExternalAudit2():
 # TC_ExternalAudit_3 --> Verify Type of Inspection #PASSED
 def TC_ExternalAudit3():
     print("\nTesting TC_ExternalAudit3")
+    TC_ExternalAudit1()
+    TC_ExternalAudit2()
     # select Type of Inspection dropdown list
     try:
         time.sleep(1.5)
@@ -98,9 +97,6 @@ def TC_ExternalAudit3():
         type_of_Inspection_List = list()
         expected_List = ['AUDIT', 'REAUDIT', 'ADHOC/WILDCARD', 'NEW SUPPLIER', 'PERIODICAL AUDIT', 'PRELIMINARY AUDIT',
                          'QUARTERLY AUDIT', 'REVIEW', 'ROUTINE']
-        # type_of_Inspection_List.append(
-        # driver.find_element_by_xpath('//*[@id="ExtTypeInspection_Id"]/option[' + str(2) + ']').get_attribute(
-        #  'textContent'))
         for iGroup in range(type_of_Inspection):
             if type_of_Inspection != 9:
                 print('TEST FAILED! Number of options are not equal to 9')
@@ -108,26 +104,20 @@ def TC_ExternalAudit3():
         type_of_Inspection_List.append(
             driver.find_element_by_xpath('//*[@id="ExtTypeInspection_Id"]/option[' + str(3) + ']').get_attribute(
                 'textContent'))
-        # type_of_Inspection_List.append(driver.find_element_by_xpath(
-        # '//*[@id="ExtTypeInspection_Id"]/option[' + str(iGroup + 2) + ']').get_attribute('textContent'))
         driver.find_element_by_xpath('//*[@id="ExtTypeInspection_Id"]/option[' + str(3) + ']').click()
 
         print('TEST PASSED. Able to verify Type of Inspection. Type of Inspection is populated as follows:\n',
               expected_List, 'from Database')
 
-    # if type_of_Inspection_List == expected_List:
-    #  print('TEST PASSED: Type of Inspection is populated as follows:\n', type_of_Inspection_List,
-    # 'from Database')
-    # else:
-    #  print('TEST FAILED')
-
     except Exception as e:
         print('TEST FAILED ! Not able to verify Type of Inspection list', e)
 
 
-# TC_ExternalAudit_4 --> Verify CB Application No.
+# TC_ExternalAudit_4 --> Verify CB Application No. # List is not yet completed
 def TC_ExternalAudit4():
     print("\nTesting TC_ExternalAudit4")
+    TC_ExternalAudit1()
+    TC_ExternalAudit2()
     # select CB Halal Application No list
     try:
         time.sleep(1.5)
@@ -152,9 +142,6 @@ def TC_ExternalAudit4():
                          'HALAL-20200429-112824(PM)', 'HALAL-20200429-113525(PM)', 'HALAL-20200512-073757(PM)',
                          'HALAL-20200513-111122(PM)', 'HALAL-20200519-075840(PM)', 'HALAL-20200519-080022(PM)',
                          ]
-        # type_of_Inspection_List.append(
-        # driver.find_element_by_xpath('//*[@id="ExtTypeInspection_Id"]/option[' + str(2) + ']').get_attribute(
-        #  'textContent'))
         for iGroup in range(CB_HalalApplication_No):
             if CB_HalalApplication_No != 111:
                 print('TEST FAILED! Number of options are not equal to 111')
@@ -164,8 +151,6 @@ def TC_ExternalAudit4():
             driver.find_element_by_xpath(
                 '// *[ @ id = "ExtCBRefApplicationNo_Id"] / option[' + str(2) + ']').get_attribute(
                 'textContent'))
-        # type_of_Inspection_List.append(driver.find_element_by_xpath(
-        # '//*[@id="ExtTypeInspection_Id"]/option[' + str(iGroup + 2) + ']').get_attribute('textContent'))
         driver.find_element_by_xpath('// *[ @ id = "ExtCBRefApplicationNo_Id"] / option[' + str(2) + ']').click()
         print('TEST PASSED. CB Application No. populated from Halal Application -> My Application with Status = '
               'PROCESSING AT JAKIM (NEW) / PROCESSING AT JAKIM (RENEWAL) ')
@@ -178,6 +163,8 @@ def TC_ExternalAudit4():
 def TC_ExternalAudit5():
     print("\nTesting TC_ExternalAudit5")
     # Brand Owner list
+    TC_ExternalAudit1()
+    TC_ExternalAudit2()
     try:
         time.sleep(1.5)
         ForCompany = driver.find_elements_by_xpath('//*[@id="BrandOwner_Id"]/option')
@@ -195,12 +182,10 @@ def TC_ExternalAudit5():
             if ForCompany != 15:
                 print('TEST FAILED! Number of options are not equal to 15')
             break
-        # // *[ @ id = "BrandOwner_Id"] / option[12]
-        # // *[ @ id = "BrandOwner_Id"] / option[8]
         ForCompany_List.append(
-            driver.find_element_by_xpath('// *[ @ id = "BrandOwner_Id"] / option[' + str(8) + ']').get_attribute(
+            driver.find_element_by_xpath('// *[ @ id = "BrandOwner_Id"] / option[' + str(9) + ']').get_attribute(
                 'textContent'))
-        driver.find_element_by_xpath('// *[ @ id = "BrandOwner_Id"] / option[' + str(8) + ']').click()
+        driver.find_element_by_xpath('// *[ @ id = "BrandOwner_Id"] / option[' + str(9) + ']').click()
 
         print('TEST PASSED. 1. Brand Owner populated from Company Information - Profiles')
 
@@ -208,10 +193,12 @@ def TC_ExternalAudit5():
         print('TEST FAILED ! 1. Brand Owner not populated from Company Information - Profiles', e)
 
 
-# TC_ExternalAudit_6 --> Verify Received From
+# TC_ExternalAudit_6 --> Verify Received From # List is not completed
 def TC_ExternalAudit6():
     print("\nTesting TC_ExternalAudit6")
     # Received From list
+    TC_ExternalAudit1()
+    TC_ExternalAudit2()
     try:
         time.sleep(1.5)
         ReceivedFrom = driver.find_elements_by_xpath('//*[@id="CertificationBodies_Id"]/option')
@@ -240,14 +227,11 @@ def TC_ExternalAudit6():
             if ReceivedFrom != 96:
                 print('TEST FAILED! Number of options are not equal to 96')
             break
-            # //*[@id="CertificationBodies_Id"]/option[2]
-            # // *[ @ id = "CertificationBodies_Id"] / option[18]
-            # // *[ @ id = "CertificationBodies_Id"] / option[4]
         ReceivedFrom_List.append(
             driver.find_element_by_xpath(
-                '// *[ @ id = "CertificationBodies_Id"] / option[' + str(4) + ']').get_attribute(
+                '// *[ @ id = "CertificationBodies_Id"] / option[' + str(3) + ']').get_attribute(
                 'textContent'))
-        driver.find_element_by_xpath('// *[ @ id = "CertificationBodies_Id"] / option[' + str(4) + ']').click()
+        driver.find_element_by_xpath('// *[ @ id = "CertificationBodies_Id"] / option[' + str(3) + ']').click()
 
         print('TEST PASSED. 1. Brand Owner populated from Reference Data - Certification Bodies ')
 
@@ -259,17 +243,11 @@ def TC_ExternalAudit6():
 def TC_ExternalAudit7():
     print("\nTesting TC_External Audit 7")
     # driver.get('https://vhsmartqsrtest.azurewebsites.net/CBExternal/Index')
-
+    TC_ExternalAudit1()
     try:
-        # 1. Login into VH SMART
-        login()
-
-        # 2. Go to (Audit -> Audit Report -> External)
-        TC_ExternalAudit1()
-
         # 3. Click Button [Add]
         time.sleep(1.5)
-        driver.find_element_by_xpath('/html/body/div[2]/div[1]/div[3]/div[2]/div/div/div/div[1]/div/button').click()
+        driver.find_element_by_xpath('/ html / body / div[2] / div[1] / div[3] / div[2] / div / div / div / div[1] / div / button / i').click()
         # insert element into For Company field #PASSED
         ForCompany_list = driver.find_element_by_xpath('//*[@id="BrandOwner_Id"]')
         dropdownCompany = Select(ForCompany_list)
@@ -347,13 +325,13 @@ def TC_ExternalAudit7():
         dropdownOverallStatus.select_by_index('2')  # 1. Opened 2. Closed
 
         # click Save button #PASSED
-        driver.find_element_by_xpath('//*[@id="btnSaveNCRExternalCB"]').click().send_keys(Keys.ENTER)
+        driver.find_element_by_xpath('//*[@id="btnSaveNCRExternalCB"]').click()
 
         # click OK button popup
-        driver.find_element_by_xpath('/html/body/div[4]/div/div[3]/button[1]').click().send_keys(Keys.ENTER)
+        # driver.find_element_by_xpath('/html/body/div[4]/div/div[3]/button[1]').click() # cannot click OK button
 
         # click CLOSE button
-        driver.find_element_by_xpath('// *[ @ id = "ReferenceModal"] / div / div / div[2] / button[2]').click()
+        # driver.find_element_by_xpath('// *[ @ id = "ReferenceModal"] / div / div / div[2] / button[2]').click()
 
         print("TEST PASSED. Able to add External Audit Report")
 
@@ -361,12 +339,15 @@ def TC_ExternalAudit7():
         print("TEST FAILED. Not able to add External Audit Report", e)
 
 
-# Add List of Non Conformance
+# Add List of Non Conformance #PASSED
 def TC_ExternalAudit8():
     print("\nTesting TC_External Audit 8")
+    driver.get('https://vhsmartqsrtest.azurewebsites.net/CBExternal/Index')
     try:
-        # Put and save details of External Audit Report
-        TC_ExternalAudit7()
+        time.sleep(1.5)
+        driver.maximize_window()
+        # Click Edit button
+        driver.find_element_by_xpath('//*[@id="ExternalNCRCB"]/tbody/tr[2]/td[1]/a[2]/i').click()
         time.sleep(1.5)
         # insert element into Item (List Premise / Manufacturer )
         Item_list = driver.find_element_by_xpath('//*[@id="SelectedItemHalalApplicationId"]')
@@ -399,74 +380,252 @@ def TC_ExternalAudit8():
 
         # insert element into Remarks field
         RemarksNCR_box = driver.find_element_by_xpath('//*[@id="NCRDetails_Remarks"]')
-        RemarksNCR = "Testing 123"
+        RemarksNCR = "Testing 001"
         # Put/Parse details of Remarks
         RemarksNCR_box.send_keys(RemarksNCR)
 
         # click Save/Add button
         time.sleep(1.5)
-        driver.find_element_by_xpath("/html/body/div[4]/div/div[3]/button[1]").click()
+        driver.find_element_by_xpath('//*[@id="addManageNCR"]/button').click()
 
         print("TEST PASSED. Able to add List of Non Conformance")
     except Exception as e:
-        print("TEST FAILED. Not able to add List of Non Conformance")
+        print("TEST FAILED. Not able to add List of Non Conformance", e)
+
+
+# TC External Audit 9 --> Edit List of Non Conformance
+# TC External Audit 10 --> Delete List of Non Conformance
+def TC_ExternalAudit10():
+    print("\nTesting TC_External Audit 11: Add Attachment")
+    driver.get('https://vhsmartqsrtest.azurewebsites.net/CBExternal/Index')  # put URL of External page
+    try:
+        time.sleep(1.5)
+        driver.maximize_window()
+        # click Edit button
+        driver.find_element_by_xpath('//*[@id="ExternalNCRCB"]/tbody/tr[1]/td[1]/a[2]/i').click()
+        time.sleep(1.5)
+        # click Delete button at List of Non Conformance Table
+        driver.find_element_by_xpath('//*[@id="ExternalNCRDetails"]/tbody/tr/td[1]/a/i').click()
+        driver.implicitly_wait(10)  # seconds
+        alert = Alert(driver)
+        alert.accept()
+        print("TEST PASSED. Able to delete List of Non Conformance.")
+
+    except Exception as e:
+        print("TEST FAILED. Unable to delete List of Non Conformance ", e)
+
+
+# TC External Audit 11 --> Add Attachment #PASSED
+def TC_ExternalAudit11():
+    print("\nTesting TC_External Audit 11: Add Attachment")
+    driver.get('https://vhsmartqsrtest.azurewebsites.net/CBExternal/Index')  # put URL of External page
+    try:
+        driver.maximize_window()
+        time.sleep(1.5)
+        driver.find_element_by_xpath('//*[@id="ExternalNCRCB"]/tbody/tr[1]/td[1]/a[2]/i').click()  # click Edit button
+        time.sleep(1.5)
+        driver.execute_script('window.scrollTo(0,document.body.scrollHeight)')  # scroll until last of page
+        driver.find_element_by_xpath('//*[@id="AttachmentInfo"]').click()
+        # driver.execute_script('window.scrollTo(0,document.body.scrollHeight)') # scroll until last of page
+        # scroll = driver.find_element_by_xpath('//*[@id="AttachmentInfo"]').click()
+        # driver.execute_script("arguments[0].scrollIntoView();", scroll)
+        DocumentType_list = driver.find_element_by_xpath('//*[@id="NCRExt_DocumentType_Id"]')
+        dropdownDocumentType_Details = Select(DocumentType_list)
+        dropdownDocumentType_Details.select_by_index('2')  # 1. Audit Report 2. Non Conformance Report 3. Halal
+        driver.implicitly_wait(1.5)
+        driver.find_element_by_xpath('//*[@id="file"]').send_keys("C://Users/USER/Downloads/Testing 2.1MB.pdf")
+        driver.find_element_by_xpath('//*[@id="ManageProduct_FileAttach"]').click()
+        # click Close button
+        driver.find_element_by_xpath('//*[@id="ReferenceModal"]/div/div/div[2]/button[2]').click()
+        print("TEST PASSED. Able to add attachment")
+    # //*[@id="NCRExt_DocumentType_Id"]/option[2]
+    except Exception as e:
+        print("TEST FAILED. Unable to add attachment", e)
+
+
+# TC External Audit 12 --> Download Attachment #PASSED
+def TC_ExternalAudit12():
+    print("\nTesting TC_External Audit 12: Download Attachment")
+    driver.get('https://vhsmartqsrtest.azurewebsites.net/CBExternal/Index')  # put URL of External page
+    try:
+        driver.maximize_window()
+        time.sleep(1.5)
+        driver.find_element_by_xpath('//*[@id="ExternalNCRCB"]/tbody/tr[1]/td[1]/a[1]/i').click()  # Click View button
+        time.sleep(1.5)
+        driver.execute_script('window.scrollTo(0,document.body.scrollHeight)')  # scroll until last of page
+        driver.find_element_by_xpath('//*[@id="AttachmentInfo"]').click()
+        scroll = driver.find_element_by_xpath('//*[@id="AttachmentInfo"]')
+        driver.execute_script("arguments[0].scrollIntoView();", scroll)
+        driver.execute_script('window.scrollTo(0,document.body.scrollHeight)')  # scroll until last of page
+        time.sleep(1.5)
+        driver.find_element_by_xpath('//*[@id="AddAttachment"]/tbody/tr[2]/td[1]/a/i').click()  # click Download button
+        print("TEST PASSED. Able to download attachment")
+    except Exception as e:
+        print("TEST FAILED. Not Able to download attachment. ", e)
+
+
+# TC External Audit 13 --> Delete Attachment
+def TC_ExternalAudit_13():
+    print("\nTesting TC_ExternalAudit_13. Delete Attachment")
+    driver.get('https://vhsmartqsrtest.azurewebsites.net/CBExternal/Index')  # put URL of External page
+    try:
+        driver.maximize_window()
+        time.sleep(1.5)
+        driver.find_element_by_xpath('//*[@id="ExternalNCRCB"]/tbody/tr[1]/td[1]/a[2]/i').click()  # click Edit button
+        time.sleep(1.5)
+        driver.execute_script('window.scrollTo(0,document.body.scrollHeight)')  # scroll until last of page
+        driver.find_element_by_xpath('//*[@id="AttachmentInfo"]').click()
+        scroll = driver.find_element_by_xpath('//*[@id="AttachmentInfo"]')
+        driver.execute_script("arguments[0].scrollIntoView();", scroll)
+        driver.execute_script('window.scrollTo(0,document.body.scrollHeight)')  # scroll until last of page
+        time.sleep(1.5)
+        # //*[@id="AddAttachment"]/tbody/tr[1]/td[1]/a[2]/i
+        driver.find_element_by_xpath('//*[@id="AddAttachment"]/tbody/tr[1]/td[1]/a[2]/i').click()
+        # delete testingfile3.05mb.pdf
+        driver.implicitly_wait(10)  # seconds
+        alert = Alert(driver)
+        alert.accept()
+
+        print("TEST PASSED. Able to delete Attachment")
+    except Exception as e:
+        print("TEST FAILED. Not able to delete Attachment", e)
 
 
 # TC External 14 --> View External Audit Report
-def TC_External14():
+def TC_ExternalAudit14():
     print("\nTesting TC_External_14: View External Audit Report")
     driver.get('https://vhsmartqsrtest.azurewebsites.net/CBExternal/Index')  # put URL of External page
     try:
         driver.maximize_window()
         driver.implicitly_wait(10)  # seconds
         time.sleep(3)
-        # 1-3 : PASSED ,
-        # 9-10 : FAILED
-
+        # 1-5 : PASSED ,
+        # 6-10 : FAILED
         # driver.execute_script('window.scrollTo(0,document.body.scrollHeight)') # scroll until last of page
-        scroll = driver.find_element_by_xpath('//*[@id="ExternalNCRCB"]/tbody/tr[4]/td[1]/a[1]')
+        driver.implicitly_wait(10)  # seconds
+        scroll = driver.find_element_by_xpath('//*[@id="ExternalNCRCB"]/tbody/tr[5]/td[1]/a[1]/i')
+        # driver.execute_script('window.scrollTo(0,document.body.scrollHeight)')
         driver.execute_script("arguments[0].scrollIntoView();", scroll)
-        driver.click()
+        driver.execute_script("arguments[0].scrollIntoView();", scroll)
+        driver.execute_script('window.scrollTo(0,document.body.scrollHeight)')
+        driver.execute_script("arguments[0].scrollIntoView();", scroll)
+        driver.execute_script('window.scrollTo(0,document.body.scrollHeight)')
+        driver.execute_script("arguments[0].scrollIntoView();", scroll)
+        driver.execute_script('window.scrollTo(0,document.body.scrollHeight)')
+        driver.execute_script("arguments[0].scrollIntoView();", scroll)
+        driver.execute_script('window.scrollTo(0,document.body.scrollHeight)')
+        driver.execute_script("arguments[0].scrollIntoView();", scroll)
+        driver.execute_script('window.scrollTo(0,document.body.scrollHeight)')
+        driver.execute_script("arguments[0].scrollIntoView();", scroll)
+        driver.execute_script('window.scrollTo(0,document.body.scrollHeight)')
+        driver.execute_script("arguments[0].scrollIntoView();", scroll)
+        driver.execute_script('window.scrollTo(0,document.body.scrollHeight)')
+        driver.execute_script("arguments[0].scrollIntoView();", scroll)
+        driver.implicitly_wait(10)  # seconds
+        driver.find_element_by_xpath('//*[@id="ExternalNCRCB"]/tbody/tr[5]/td[1]/a[1]/i').click()
+        driver.execute_script("arguments[0].scrollIntoView();", scroll)
+        driver.execute_script('window.scrollTo(0,document.body.scrollHeight)')
+        driver.execute_script("arguments[0].scrollIntoView();", scroll)
+        driver.execute_script('window.scrollTo(0,document.body.scrollHeight)')
+
         print("TEST PASSED. Able to view External Audit Report")
     except Exception as e:
         print("TEST FAILED. Unable to view External Audit Report", e)
 
 
 # TC External 15 --> Edit External Audit Report
-def TC_External15():
+def TC_ExternalAudit15():
     print("\nTesting TC_ExternalAudit_15: Edit External Audit Report")
     driver.get('https://vhsmartqsrtest.azurewebsites.net/CBExternal/Index')  # put URL of External page
     try:
         time.sleep(1.5)
-        driver.find_element_by_xpath(
-            '//*[@id="ExternalNCRCB"]/tbody/tr[1]/td[1]/a[2]').click()  # xpath for Edit button (not sure which Edit button it will choose/click)
-        # Edit 1st field -->
-        driver.implicitly_wait(10)  # seconds
-        ForCompany_field = driver.find_element_by_xpath('//*[@id="BrandOwner_Id"]')  # xpath for For Company field
-        ForCompany_field.click()
-        # clear contents for ForCompany_field
-        driver.implicitly_wait(10)  # seconds
-        ForCompany_field.clear()
-        # put new details in For Company field
-        driver.implicitly_wait(10)  # seconds
-        ForCompany_field.select_by_index('5')  # Changed from KARA HOLDINGS to a new one
+        driver.maximize_window()
+        driver.find_element_by_xpath('//*[@id="ExternalNCRCB"]/tbody/tr[1]/td[1]/a[2]/i').click()  # xpath for Edit button
+        time.sleep(1.5)
+        # edit For Company field
+        ForCompany_list = driver.find_element_by_xpath('//*[@id="BrandOwner_Id"]')
+        dropdownCompany = Select(ForCompany_list)
+        dropdownCompany.select_by_index('5')  # Change from Ayamas to KARA
+        time.sleep(1.5)
+        # edit Received From field
+        ReceivedFrom_list = driver.find_element_by_xpath('//*[@id="CertificationBodies_Id"]')
+        dropdownReceive = Select(ReceivedFrom_list)
+        dropdownReceive.select_by_index('2')  # change from ARA to Agency for Halal Quality Certification
 
-        # Edt 2nd field -->
-        driver.implicitly_wait(10)  # seconds
-        ReceivedFrom_field = driver.find_element_by_xpath('//*[@id="CertificationBodies_Id"]')
-        ReceivedFrom_field.click()
-        driver.implicitly_wait(10)
-        ReceivedFrom_field.clear()
-        # put new details in Received From field
-        ReceivedFrom_field.select_by_index('3')  # change from Agency for Halal Quality Certification
+        # edit CB Audit Reference No field #PASSED
+        driver.find_element_by_xpath('//*[@id="NCR_AuditReportNo"]').clear()
+        CB_ReferenceNo_box = driver.find_element_by_xpath('//*[@id="NCR_AuditReportNo"]')
+        CB_ReferenceNo = "AFHQC-20211018/10"  # this CB_no. is randomly filled?
+        # Put/Parse details of CB Audit Reference No
+        CB_ReferenceNo_box.send_keys(CB_ReferenceNo)
 
-        # Edit 3rd field -->
-        CBReferenceNo_field = driver.find_element_by_xpath('//*[@id="NCR_AuditReportNo"]')
-        # put new details in CB Reference No field
-        CBReferenceNo_field.send_keys("AFHQC-20211018/11")
+        # edit Type of Application field #PASSED
+        TypeofApplication_list = driver.find_element_by_xpath('// *[ @ id = "ExtTypeApplication_Id"]')
+        dropdownTypeofApplication = Select(TypeofApplication_list)
+        dropdownTypeofApplication.select_by_index('4')  # change from Additional to Post Audit
 
-        # Edit 4rd field -->
-        # TypeofApplication_field = driver.find_element_by_xpath('// *[ @ id = "ExtTypeApplication_Id"]')
+        # edit Type of Inspection field #PASSED
+        TypeofInspection_list = driver.find_element_by_xpath('//*[@id="ExtTypeInspection_Id"]')
+        dropdownTypeofInspection = Select(TypeofInspection_list)
+        dropdownTypeofInspection.select_by_index(
+            '9')  # 1.AUDIT  2. REAUDIT  3. ADHOC/WILDCARD 4. NEW SUPPLIER ... 9. ROUTINE
+        # change from ADHOC/WILDCARD to ROUTINE
+
+        # edit Application Scheme field #PASSED
+        ApplicationScheme_list = driver.find_element_by_xpath('//*[@id="Scheme_Id"]')
+        dropdownApplication_Scheme = Select(ApplicationScheme_list)
+        dropdownApplication_Scheme.select_by_index(
+            '1')  # 1. Food Products / Beverages / Supplements (PR) 2. Food Premise (PM)
+        # change from PR to PM
+
+        # edit CB Halal Application No field
+        CBHalalApplication_list = driver.find_element_by_xpath('//*[@id="ExtCBRefApplicationNo_Id"]')
+        dropdownCBHalalApplication = Select(CBHalalApplication_list)
+        dropdownCBHalalApplication.select_by_index('2')  # 1. HALAL-20160418-081147(PR) 2. HALAL-20160418-081147(PR)
+        # 3. HALAL-20160418-081147(PR) 4. HALAL-20161012-082921(PR) 5. HALAL-20170216-092959(BG) 6.
+        # HALAL-20180309-161440(PR) 7. HALAL-20181130-093024(KO) 8. HALAL-20190508-074731(PM) ... last.
+        # HALAL-CERT-2022-05-237462
+
+        # edit Certification No. field #PASSED
+        driver.find_element_by_xpath('//*[@id="NCR_CertificationNo"]').clear()
+        CertificationNo_box = driver.find_element_by_xpath('//*[@id="NCR_CertificationNo"]')
+        CertificationNo = "Testing 000"
+        # Put/Parse details of CertificationNo
+        CertificationNo_box.send_keys(CertificationNo)
+
+        # edit Audit Date field #PASSED
+        AuditDate_box = driver.find_element_by_xpath('//*[@id="DateReceived"]')
+        AuditDate = "01/01/2000"
+        # Put/Parse details of Audit Date
+        AuditDate_box.send_keys(AuditDate)
+
+        # edit Time In field #PASSED
+        TimeIn_box = driver.find_element_by_xpath('//*[@id="TimeIn"]')
+        TimeIn = "3:00PM"
+        # Put/Parse details of Time In
+        TimeIn_box.send_keys(TimeIn)
+
+        # edit Time Out field #PASSED
+        TimeOut_box = driver.find_element_by_xpath('//*[@id="TimeOut"]')
+        TimeOut = "12:00PM"
+        # Put/Parse details of Time Out
+        TimeOut_box.send_keys(TimeOut)
+
+        # edit Remarks field #PASSED
+        driver.find_element_by_xpath('//*[@id="SummaryFindings"]').clear()
+        Remarks_box = driver.find_element_by_xpath('//*[@id="SummaryFindings"]')
+        Remarks = "Testing 2/11/2021"
+        # Put/Parse details of Remarks
+        Remarks_box.send_keys(Remarks)
+
+        # edit Overall Status field #PASSED
+        OverallStatus_list = driver.find_element_by_xpath('//*[@id="NCRStatus_Id"]')
+        dropdownOverallStatus = Select(OverallStatus_list)
+        dropdownOverallStatus.select_by_index('2')  # 1. Opened 2. Closed
+
+        # click Save button
+        driver.find_element_by_xpath('//*[@id="btnSaveNCRExternalCB"]').click()
+
         print("TEST PASSED. Able to edit External Audit Report")
 
     except Exception as e:
@@ -475,7 +634,7 @@ def TC_External15():
 
 # TC External 16 --> Delete External Audit Report
 # //*[@id="ExternalNCRCB"]/tbody/tr[1]/td[1]/a[3]
-def TC_External16():
+def TC_ExternalAudit16():
     print("\nTesting TC_ExternalAudit_16: Delete External Audit Report")
     driver.get('https://vhsmartqsrtest.azurewebsites.net/CBExternal/Index')  # put URL of External page
     try:
@@ -538,6 +697,7 @@ def TC_ExternalAudit_17():
     except Exception as e:
         print("TEST FAILED. Unable to Reply Non Conformance List", e)
 
+
 # Syariah Compliance Department credentials:
 # 1. Syariah Compliance Department(Full Access) : ahmad.yusof@qsrbrands.com.my / , hazim_Gerard@gmail.com /
 # 2. Syariah Compliance Department (View, Create and Update Only) : kahyin@gmail.com / , ismail.sulaiman@qsrbrands.com.my /
@@ -592,8 +752,10 @@ def TC_ExternalAudit_18():
     except Exception as e:
         print("TEST FAILED. Unable to edit Non Conformance List", e)
 
+
 # TC External Audit 19--> Close Non Conformance List
 
 
 openChrome()
-TC_ExternalAudit_18()
+login()
+

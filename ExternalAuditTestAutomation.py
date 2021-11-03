@@ -394,6 +394,58 @@ def TC_ExternalAudit8():
 
 
 # TC External Audit 9 --> Edit List of Non Conformance
+def TC_ExternalAudit9():
+    print("\nTesting TC_External Audit 9")
+    driver.get('https://vhsmartqsrtest.azurewebsites.net/CBExternal/Index')
+    try:
+        time.sleep(1.5)
+        driver.maximize_window()
+        # Click Edit button
+        driver.find_element_by_xpath('//*[@id="ExternalNCRCB"]/tbody/tr[2]/td[1]/a[2]/i').click()
+        time.sleep(1.5)
+        # insert element into Item (List Premise / Manufacturer )
+        Item_list = driver.find_element_by_xpath('//*[@id="SelectedItemHalalApplicationId"]')
+        dropdownItem = Select(Item_list)
+        dropdownItem.select_by_index('1')  # 1. Not Available
+
+        # insert element into Details (List Menu / Product)
+        Details_list = driver.find_element_by_xpath('// *[ @ id = "SelectedItemDetailsHalalApplicationId"]')
+        dropdownDetails = Select(Details_list)
+        dropdownDetails.select_by_index('1')  # 1. Not Available
+
+        # insert element into Reference
+        Reference_list = driver.find_element_by_xpath('// *[ @ id = "Ext_AuditReference_Id"]')
+        dropdownReference = Select(Reference_list)
+        dropdownReference.select_by_index('2')  # 1.REFERENCE 2. EXTERNAL REF 1 3. MALAYSIA HALAL CERTIFICATE PROCEDURE
+        # 4. MS1500:2009 5. MS2200:PART 1:2008
+
+        # insert element into Clause field
+        Clause_box = driver.find_element_by_xpath('//*[@id="NCRDetails_Clause"]')
+        Clause = "Testing 012"
+        # Put/Parse details of Remarks
+        Clause_box.send_keys(Clause)
+
+        # insert element into Non Conformance Details
+        NonConformanceDetails_list = driver.find_element_by_xpath('//*[@id="NCRDetails_SelectedId"]')
+        dropdownNCRDetails = Select(NonConformanceDetails_list)
+        dropdownNCRDetails.select_by_index('3')  # 1. Alamat premis tidak sama seperti dalam rekod JSPH 2. Apron pekerja
+        # kotor dan tidak bersih / Tidak memakai kasut yang sesuai / Tidak memakai penutup kepada (hair net) / 3.
+        # Bahan kimia diletak dekat dengan produk makanan ... last: Tidak mengikut FIFO
+
+        # insert element into Remarks field
+        RemarksNCR_box = driver.find_element_by_xpath('//*[@id="NCRDetails_Remarks"]')
+        RemarksNCR = "Testing 001"
+        # Put/Parse details of Remarks
+        RemarksNCR_box.send_keys(RemarksNCR)
+
+        # click Save/Add button
+        time.sleep(1.5)
+        driver.find_element_by_xpath('//*[@id="addManageNCR"]/button').click()
+
+        print("TEST PASSED. Able to edit List of Non Conformance")
+    except Exception as e:
+        print("TEST FAILED. Not able to edit List of Non Conformance", e)
+
 # TC External Audit 10 --> Delete List of Non Conformance
 def TC_ExternalAudit10():
     print("\nTesting TC_External Audit 11: Add Attachment")
